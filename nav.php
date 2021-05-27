@@ -1,4 +1,7 @@
 <h1>Police Emergency Service System</h1>
+<img src="./images/PES.png"
+	 width="460"
+	 height="180"  />
 <nav id="HeaderStyle">
   <ul>
 	<li><a href="logcall.php"><span>Log Call</a></span></li>
