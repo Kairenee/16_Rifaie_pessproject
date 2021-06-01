@@ -147,5 +147,6 @@ if (isset($_POST["btnUpdate"])){
 											 }
 											 $conn->close();
 											 ?>
-										 <script type="text/javascript">window.location="./logcall.php";</script>
+										<!--The code below is to force the screen to go to logcall instead of update  -->
+										<script type="text/javascript">window.location="./logcall.php";</script> 
 										<?php } ?>
