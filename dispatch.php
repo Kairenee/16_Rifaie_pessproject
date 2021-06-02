@@ -140,9 +140,7 @@ $conn->close();
     <td colspan="3">Dispatch Patrolcar Panel</td>
   </tr>
   <?php
-      if(is_array($patrolcarArray)){
       foreach ($patrolcarArray as $key=>$value){
-	  }  
   ?>
   <tr>
      <td><input type="checkbox" name="chkPatrolcar[]"
