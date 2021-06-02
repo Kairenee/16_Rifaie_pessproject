@@ -126,27 +126,26 @@ if (isset($_POST["btnUpdate"])){
   }
   /* else if patrol car status is FREE (3) then capture the time of completion */ 
   else if ($_POST["patrolCarStatus"] == '3'){
-                                             /* First, retrieve the incident ID from dispatch table handled by that patrol car */
-											 $sql = "SELECT incident_id FROM dispatch WHERE time_completed IS NULL AND patrolcar_id = '".$_POST['patrolCarId']."'";
-											 $result = $conn->query($sql);
-											 if ($result->num_rows > 0) {
-											   while ($row = $result->fetch_assoc()) {
-												 $incidentId = $row['incident_id'];
-											   }
-											 }
-											 // next update dispatch table
-											 $sql = "UPDATE dispatch SET time_completed = NOW() WHERE time_completed is NULL and patrolcar_id = '".$_POST['patrolCarId']."'";
-											 if ($conn->query($sql)===FALSE) {
-												 echo "Error: " . $sql . "<br>" . $conn->error;
-											 }
-											 /* update incident table to completed (3) all patrol car attended to it are FREE now */
-											 $sql = "UPDATE incident SET incident_status_id = '3' WHERE incident_id = '$incidentId' AND NOT EXISTS (SELECT * FROM dispatch WHERE time_completed IS NULL AND incident_id = '$incidentId')";
-											 if ($conn->query($sql)===FALSE) {
-											   echo "Error: " . $sql . "<br>" . $conn->error;
-											 }
-											 }
-											 $conn->close();
-											 ?>
-										<!--The code below is to force the screen to go to logcall instead of update  -->
-										<script type="text/javascript">window.location="./logcall.php";</script> 
-										<?php } ?>
+/* First, retrieve the incident ID from dispatch table handled by that patrol car */
+ $sql = "SELECT incident_id FROM dispatch WHERE time_completed IS NULL AND patrolcar_id = '".$_POST['patrolCarId']."'";
+ $result = $conn->query($sql);
+ if ($result->num_rows > 0) {
+while ($row = $result->fetch_assoc()) {
+$incidentId = $row['incident_id'];
+	}
+}
+// next update dispatch table
+ $sql = "UPDATE dispatch SET time_completed = NOW() WHERE time_completed is NULL and patrolcar_id = '".$_POST['patrolCarId']."'";
+ if ($conn->query($sql)===FALSE) {
+	 echo "Error: " . $sql . "<br>" . $conn->error;
+}
+ /* update incident table to completed (3) all patrol car attended to it are FREE now */
+$sql = "UPDATE incident SET incident_status_id = '3' WHERE incident_id = '$incidentId' AND NOT EXISTS (SELECT * FROM dispatch WHERE time_completed IS NULL AND incident_id = '$incidentId')";
+ if ($conn->query($sql)===FALSE) {
+	 echo "Error: " . $sql . "<br>" . $conn->error;
+	 }
+ }
+	 $conn->close();
+			?>
+<script type="text/javascript">window.location="./logcall.php";</script>
+	<?php } ?>
